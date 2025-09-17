@@ -8,29 +8,33 @@
 
 <body>
 	<!-- the entire body must be written by student -->
-	<div class="container">
-		<h1>My<span class="blue">Book</span>List</h1>
+	 <div class="container">
+    <h1>MyBookList</h1>
 
-		<div class="from-group">
-			<input type="text" id="title" placeholder="Title" required>
-			<input type="text" id="author" placeholder="Auhtor" required>
-			<input type="text" id="isbn" placeholder="ISBN#" required>
-			<button id="submit">Add Book</button>
-		</div>
+    <!-- form group required by tests -->
+    <div class="form-group">
+      <input id="title"   type="text" placeholder="Title" />
+      <input id="author"  type="text" placeholder="Author" />
+      <input id="isbn"    type="text" placeholder="ISBN#" />
+      <!-- must have id="submit" -->
+      <button id="submit" type="button">Add Book</button>
+    </div>
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Author</th>
-					<th>ISBN#</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody id="book-list">	
-			</tbody>
-		</table>
-	</div>
+    <!-- table required by tests -->
+    <table class="table table-striped" aria-label="books-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN#</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="book-list">
+        <!-- rows inserted here -->
+      </tbody>
+    </table>
+  </div>
 	
     <script type="text/javascript" src="./script.js">
 </script>

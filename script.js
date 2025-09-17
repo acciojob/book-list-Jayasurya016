@@ -1,83 +1,56 @@
-//your JS code here. If required.
+ const titleEl  = document.getElementById('title');
+    const authorEl = document.getElementById('author');
+    const isbnEl   = document.getElementById('isbn');
+    const submit   = document.getElementById('submit');
+    const bookList = document.getElementById('book-list');
 
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const isbn = document.getElementById("isbn");
-const submitBtn = document.getElementById("submit");
-const bookList = document.getElementById("book-list");
+    // helper to create a text cell
+    function makeCell(text){
+      const td = document.createElement('td');
+      td.textContent = text;
+      return td;
+    }
 
-submitBtn.addEventListener("click", function(e) 
-{
-	e.preventDefault();
+    // Add book on click
+    submit.addEventListener('click', () => {
+      const title  = titleEl.value.trim();
+      const author = authorEl.value.trim();
+      const isbn   = isbnEl.value.trim();
 
-	if(title.value === "" || author.value === "" || isbn.value === "")
-	{
-		alert("Please fill in the fields");
-		return;
-	}
+      if (!title || !author || !isbn) {
+        alert('Please fill in all fields');
+        return;
+      }
 
-	const row = document.createElement("tr");
+      const tr = document.createElement('tr');
+      tr.appendChild(makeCell(title));
+      tr.appendChild(makeCell(author));
+      tr.appendChild(makeCell(isbn));
 
-	row.innerHTML = `
-	<tr>${title.value}</td>
-	<td>${author.value}</td>
-	<td>${isbn.value}</td>
-	<td><button class="delete">Clear</button></td>`;
+      const tdActions = document.createElement('td');
+      const delBtn = document.createElement('button');
+      delBtn.type = 'button';          // avoids accidental form submit behavior
+      delBtn.className = 'delete';     // required by tests
+      delBtn.textContent = 'Clear';
+      delBtn.addEventListener('click', () => tr.remove());
+      tdActions.appendChild(delBtn);
+      tr.appendChild(tdActions);
 
-	bookList.appendChild(row);
+      bookList.appendChild(tr);
 
-	title.value = "";
-	author.value = "";
-	isbn.value = "";
-})
+      // clear inputs for next entry
+      titleEl.value = '';
+      authorEl.value = '';
+      isbnEl.value = '';
+      titleEl.focus();
+    });
 
-bookList.addEventListener("click", function (e) 
-{
-	if (e.target.classList.contains("delete")) 
-	{
-		e.target.parentElement.parentElement.remove();
-	}
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // allow Enter key to add too (optional but helpful)
+    [titleEl, authorEl, isbnEl].forEach(inp => {
+      inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submit.click();
+        }
+      });
+    });
